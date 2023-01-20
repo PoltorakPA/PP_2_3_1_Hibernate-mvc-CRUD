@@ -43,14 +43,12 @@ public class UserController {
 
     //создание юзера
     @GetMapping("/new")
-    @Transactional
     public String newUser(@ModelAttribute("user") User user) {
         return "new";
     }
 
     //страница редактирования пользователя
     @GetMapping("/{id}/edit")
-    @Transactional
     public String editUser(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUser(id));
         return "edit";
@@ -58,7 +56,6 @@ public class UserController {
 
     //страница создания пользователя
     @PostMapping()
-    @Transactional
     public String createUser(@ModelAttribute("user") @Valid User user) {
         userService.saveUser(user);
         return "redirect:/users";
@@ -66,7 +63,6 @@ public class UserController {
 
     //страница обновления пользователя
     @PatchMapping("/{id}")
-    @Transactional
     public String updateUser(@ModelAttribute("user") @Valid User user,
                              @PathVariable("id") int id) {
         userService.updateUser(id, user);
@@ -75,7 +71,6 @@ public class UserController {
 
     //удаление пользователя
     @DeleteMapping("/{id}")
-    @Transactional
     public String deleteUser(@PathVariable("id") int id) {
         User user = userService.getUser(id);
         userService.deleteUser(user);
